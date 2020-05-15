@@ -35,6 +35,7 @@
 
         * {
             box-sizing: border-box;
+            user-select: none;
         }
 
         body {
@@ -51,17 +52,32 @@
 
         }
 
+        .title_bl {
+            font-weight: bold;
+            font-size: 50px;
+            font-family: 'Pacifico', cursive;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 20px 20px rgba(250, 250, 250, .5);
+            transition: .3s;
+        }
+        .title_bl:hover{
+            cursor: pointer;
+            color: rgba(255, 255, 255, 1);
+            text-shadow: 0 20px 20px rgba(250, 250, 250, .8);
+        }
+
         .waves-effect {
             width: 100%;
         }
 
         .link {
-            color: wheat;
             font-size: 20px;
             font-weight: bold;
             font-family: 'Satisfy', cursive;
             font-size: 25px;
             letter-spacing: 1.5px;
+            color: wheat;
+            transition: .3s;
         }
 
         .link:hover {
@@ -87,13 +103,11 @@
     </style>
 </head>
 
-<body>
+<body class="waves-effect waves-purple ">
     <div class="height" style="height: 100px;"></div>
 
     <div class="loginC animate__animated  animate__fadeIn">
-        <div class="center"
-            style="font-weight: bold;font-size:50px;font-family: 'Pacifico', cursive;color: rgba(255,255,255,0.9);text-shadow: 0 20px 20px rgba(250, 250, 250, .5);">
-            Login</div>
+        <div class="center title_bl">Login</div>
         <div class="row">
             <div class="input-field col l4 offset-l4 s10 offset-s1">
                 <input id="email_field" type="email" class="validate">
@@ -103,8 +117,8 @@
                 <input id="password_field" type="password" class="validate">
                 <label for="password_field">Password</label>
             </div>
-            <button class=" input-field col l4 offset-l4 s10 offset-s1 btn waves-effect "
-                onclick="login()" style="background:rgba(0, 0, 0, .1)">Login</button>
+            <button class=" input-field col l4 offset-l4 s10 offset-s1 btn waves-effect " onclick="login()"
+                style="background:rgba(0, 0, 0, .1)">Login</button>
             <div class="input-field col l4 offset-l4 s10 offset-s1" style="padding: 0;">
                 <div class="create_account link center" onclick="showRegister()">Create an account ?</div>
             </div>
@@ -112,10 +126,9 @@
     </div>
 
     <div class="RegisterC animate__animated  animate__fadeIn">
-        <h4 class="center"
-            style="font-weight: bold;font-size:50px;font-family: 'Pacifico', cursive;color: rgba(255,255,255,0.9);text-shadow: 0 20px 20px rgba(250, 250, 250, .5);">
+        <h4 class="center title_bl">
             Register</h4>
-        <div class="row" style="">
+        <div class="row" >
             <div class="input-field col l4 offset-l4 s10 offset-s1">
                 <input id="email_field_r" type="email" class="validate">
                 <label for="email_field_r">Email</label>
@@ -124,10 +137,11 @@
                 <input id="password_field_r" type="password" class="validate">
                 <label for="password_field_r">Password</label>
             </div>
-            <button class=" input-field col l4 offset-l4 s10 offset-s1 btn waves-effect "
-                onclick="register()" style="margin-bottom: 0px;background:rgba(0, 0, 0, .1)">Register</button>
+            <button class=" input-field col l4 offset-l4 s10 offset-s1 btn waves-effect " onclick="register()"
+                style="margin-bottom: 0px;background:rgba(0, 0, 0, .1)">submit</button>
             <div class="input-field col l4 offset-l4 s10 offset-s1" style="padding: 0; margin-top: 10px;">
-                <button class="btn waves-effect"  style="background:rgba(0, 0, 0, .1)" onclick="googleSignIn()">Register with google</button>
+                <button class="btn waves-effect" style="background:rgba(0, 0, 0, .1)" onclick="googleSignIn()">Register
+                    with google</button>
             </div>
             <div class="input-field col l4 offset-l4 s10 offset-s1">
                 <div class="login_account center link" onclick="showLogin()">Have an account, Sign in ?</div>
