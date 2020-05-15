@@ -51,6 +51,10 @@
 
         }
 
+        .waves-effect {
+            width: 100%;
+        }
+
         .link {
             color: wheat;
             font-size: 20px;
@@ -92,17 +96,17 @@
             Login</div>
         <div class="row">
             <div class="input-field col l4 offset-l4 s10 offset-s1">
-                <input id="email_field" type="text" class="validate">
+                <input id="email_field" type="email" class="validate">
                 <label for="email_field">Email</label>
             </div>
             <div class="input-field col l4 offset-l4 s10 offset-s1">
                 <input id="password_field" type="password" class="validate">
                 <label for="password_field">Password</label>
             </div>
-            <button class=" input-field col l4 offset-l4 s10 offset-s1 btn waves-effect green"
-                onclick="login()">Login</button>
+            <button class=" input-field col l4 offset-l4 s10 offset-s1 btn waves-effect "
+                onclick="login()" style="background:rgba(0, 0, 0, .1)">Login</button>
             <div class="input-field col l4 offset-l4 s10 offset-s1" style="padding: 0;">
-                <div class="create_account link" onclick="showRegister()">Create an account ?</div>
+                <div class="create_account link center" onclick="showRegister()">Create an account ?</div>
             </div>
         </div>
     </div>
@@ -111,37 +115,40 @@
         <h4 class="center"
             style="font-weight: bold;font-size:50px;font-family: 'Pacifico', cursive;color: rgba(255,255,255,0.9);text-shadow: 0 20px 20px rgba(250, 250, 250, .5);">
             Register</h4>
-        <div class="row">
+        <div class="row" style="">
             <div class="input-field col l4 offset-l4 s10 offset-s1">
-                <input id="email_field_r" type="text" class="validate">
+                <input id="email_field_r" type="email" class="validate">
                 <label for="email_field_r">Email</label>
             </div>
             <div class="input-field col l4 offset-l4 s10 offset-s1">
-                <input id="password_field_r" type="password" class="validate" >
+                <input id="password_field_r" type="password" class="validate">
                 <label for="password_field_r">Password</label>
             </div>
-            <button class=" input-field col l4 offset-l4 s10 offset-s1 btn waves-effect green"
-                onclick="register()">Register</button>
-            <div class="input-field col l4 offset-l4 s10 offset-s1">
-                <div class="login_account link" onclick="showLogin()">Have an account, Sign in ?</div>
+            <button class=" input-field col l4 offset-l4 s10 offset-s1 btn waves-effect "
+                onclick="register()" style="margin-bottom: 0px;background:rgba(0, 0, 0, .1)">Register</button>
+            <div class="input-field col l4 offset-l4 s10 offset-s1" style="padding: 0; margin-top: 10px;">
+                <button class="btn waves-effect"  style="background:rgba(0, 0, 0, .1)" onclick="googleSignIn()">Register with google</button>
             </div>
             <div class="input-field col l4 offset-l4 s10 offset-s1">
-                <button class="btn btn-small waves-effect  red" onclick="googleSignIn()">Register with google.</button>
+                <div class="login_account center link" onclick="showLogin()">Have an account, Sign in ?</div>
             </div>
+
         </div>
     </div>
 
-
-
-    <div class="homeScreenC animate__animated  animate__rollIn">
+    <div class="homeScreenC animate__animated  animate__rollIn waves-effect">
         <div class="row" style="height: 100vh;display: flex;flex-direction: column; padding: 0;margin: 0;">
             <div class="col l6 offset-l3  s10 offset-s1" style="padding: 0;">
-                <div class="card-panel" style="background:rgba(0,0,0,.3);margin-bottom: 0;">
-                    <div class="" id="logInEmail" style="font-weight:bold"></div>
-                    <button class="btn btn-small" style="padding: 0px 20px;" onclick="signOut()">Sign Out</button>
+                <div class="card-panel"
+                    style="background:rgba(0,0,0,.3);margin:0 ; margin-top: 5px; padding-top: 5px;padding-bottom: 5px;">
+                    <div class="" id="logInEmail" style="font-weight:600;margin-bottom: 4px;"></div>
+                    <div class="">
+                        <button class="btn btn-small red lighten-1  " style="padding: 0px 20px;font-size: 10px;"
+                            onclick="signOut()">Sign Out</button>
+                    </div>
                 </div>
             </div>
-            <div class="col l6 offset-l3 s10 offset-s1" style="flex:1;padding: 0;">
+            <div class="col l6 offset-l3 s10 offset-s1 " style="flex:1;padding: 0;">
                 <div class="card-panel" style="background:rgba(0,0,0,.2);height: 99%;overflow-y: auto;">
                     <div class="preloader_msg_box"
                         style="display: flex;justify-content: center;align-items: center;height: 100%;">
@@ -159,7 +166,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="message_box row">
+                    <div class="message_box row ">
 
                     </div>
                 </div>
@@ -171,7 +178,8 @@
                         <label for="message_field">Message : </label>
                     </div>
                     <div class="input-field col l12  s10 offset-s1" style="margin-top: 0;margin-bottom: 0;">
-                        <button class="btn btn-small green" style="width: 100%;" onclick="addData()">Send</button>
+                        <button class="btn  waves-effect" style="width: 100%;background:rgba(255, 255, 255, .1)"
+                            onclick="addData()">Send</button>
                     </div>
                 </div>
             </div>
@@ -257,6 +265,7 @@
     var email = '';
     var displayName;
     function register() {
+        email = '';
         email = $("#email_field_r").val()
         password = $("#password_field_r").val()
         firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -278,7 +287,9 @@
     }
 
     firebase.auth().onAuthStateChanged(function (user) {
+        email = ''
         if (user) {
+
             // User is signed in.
             displayName = user.displayName;
             email = user.email;
@@ -287,6 +298,7 @@
             var isAnonymous = user.isAnonymous;
             var uid = user.uid;
             var providerData = user.providerData;
+
             $(".loginC").hide()
             $(".RegisterC").hide()
             if (emailVerified === false) {
@@ -318,9 +330,11 @@
                 });
             }
             else {
+
                 $(".homeScreenC").show()
                 $("#logInEmail").append(email)
                 $(".height").hide()
+
                 firebase.database().ref('/messages/').on('value', function (snapshot) {
                     $(".message_box").empty()
                     $(".preloader_msg_box").hide()
@@ -331,12 +345,12 @@
                             temp_msg_box = `<div class="col s10 offset-s2 "
                                         style="padding:0;display: flex;justify-content: flex-end; align-items:center;">
                                         <div class="message_box_msg " style="margin-right:5px;">
-                                            <div class="card white-text blue darken-2" style=" padding:5px 10px;">${sv[key].message}
+                                            <div class="card white-text " style="background:rgba(255,255,255,.3); padding:5px 10px;">${sv[key].message}
                                             </div>
                                         </div>
                                         <div class="">
                                             <div class="white-text circle"
-                                                style="background:rgba(0,0,0,.3);height: 50px;width: 50px;display: flex; align-items:center;justify-content: center;font-weight:bolder">
+                                                style="border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.3);height: 50px;width: 50px;display: flex; align-items:center;justify-content: center;font-weight:bolder">
                                                 ${email.substring(0, 1)}</div>
                                         </div>
                                     </div>`
@@ -345,17 +359,18 @@
                             temp_msg_box = `<div class="col s10" style="padding:0;display: flex; align-items:center;">
                             <div class="">
                                 <div class=" white-text circle"
-                                    style="background:rgba(255,255,255,.3);height: 50px;width: 50px;display: flex; align-items:center;justify-content: center;font-weight:bolder">
-                                    ${email.substring(0, 1)}</div>
+                                    style="border:1px solid rgba(255,255,255,.3);background:rgba(50,50,50,.4);height: 50px;width: 50px;display: flex; align-items:center;justify-content: center;font-weight:bolder">
+                                    ${sv[key].id.substring(0, 1)}</div>
                             </div>
                             <div class="message_box_msg" style="margin-left:5px;">
-                                <div class="card white-text blue" style="padding:5px 10px;">${sv[key].message}
+                                <div class="card white-text" style="padding:5px 10px;background:rgba(255,255,255,.1)">${sv[key].message}
                                 </div>
                             </div>
                         </div>`
                         }
 
                         $(".message_box").append(temp_msg_box)
+                        $('#message_field').focus()
                     })
                     items = document.querySelectorAll(".message_box .col")
                     items[items.length - 1].scrollIntoView();
@@ -406,6 +421,7 @@
                 message: message_txt
             })
             $('#message_field').val('')
+            $('#message_field').focus()
         }
     }
     $("#message_field").keyup(function (e) {
