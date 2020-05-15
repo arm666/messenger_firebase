@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messenger</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&family=Pacifico&family=Satisfy&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, .1);
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: rgba(250, 250, 250, .8);
+            transition: .3s;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(250, 250, 250, .9);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(to right, #8e2de2, #4a00e0);
+        }
+
+        body {
+            color: white;
+        }
+
+        button {
+            font-weight: bold;
+            font-family: 'Noto Sans JP', sans-serif;
+
+        }
+
+        .link {
+            color: wheat;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: 'Satisfy', cursive;
+            font-size: 25px;
+            letter-spacing: 1.5px;
+        }
+
+        .link:hover {
+            cursor: pointer;
+            color: white;
+            transition: .3s;
+        }
+
+        .loginC label,
+        .loginC input,
+        .RegisterC label,
+        .RegisterC input,
+        #message_field~label {
+            color: white
+        }
+
+        .loginC input::placeholder,
+        #message_field,
+        #message_field::placeholder,
+        .RegisterC input::placeholder {
+            color: white
+        }
+    </style>
+</head>
+
+<body>
+    <div class="height" style="height: 100px;"></div>
+
+    <div class="loginC animate__animated  animate__fadeIn">
+        <div class="center"
+            style="font-weight: bold;font-size:50px;font-family: 'Pacifico', cursive;color: rgba(255,255,255,0.9);text-shadow: 0 20px 20px rgba(250, 250, 250, .5);">
+            Login</div>
+        <div class="row">
+            <div class="input-field col l4 offset-l4 s10 offset-s1">
+                <input id="email_field" type="text" class="validate">
+                <label for="email_field">Email</label>
+            </div>
+            <div class="input-field col l4 offset-l4 s10 offset-s1">
+                <input id="password_field" type="password" class="validate">
+                <label for="password_field">Password</label>
+            </div>
+            <button class=" input-field col l4 offset-l4 s10 offset-s1 btn waves-effect green"
+                onclick="login()">Login</button>
+            <div class="input-field col l4 offset-l4 s10 offset-s1" style="padding: 0;">
+                <div class="create_account link" onclick="showRegister()">Create an account ?</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="RegisterC animate__animated  animate__fadeIn">
+        <h4 class="center"
+            style="font-weight: bold;font-size:50px;font-family: 'Pacifico', cursive;color: rgba(255,255,255,0.9);text-shadow: 0 20px 20px rgba(250, 250, 250, .5);">
+            Register</h4>
+        <div class="row">
+            <div class="input-field col l4 offset-l4 s10 offset-s1">
+                <input id="email_field_r" type="text" class="validate">
+                <label for="email_field_r">Email</label>
+            </div>
+            <div class="input-field col l4 offset-l4 s10 offset-s1">
+                <input id="password_field_r" type="password" class="validate" >
+                <label for="password_field_r">Password</label>
+            </div>
+            <button class=" input-field col l4 offset-l4 s10 offset-s1 btn waves-effect green"
+                onclick="register()">Register</button>
+            <div class="input-field col l4 offset-l4 s10 offset-s1">
+                <div class="login_account link" onclick="showLogin()">Have an account, Sign in ?</div>
+            </div>
+            <div class="input-field col l4 offset-l4 s10 offset-s1">
+                <button class="btn btn-small waves-effect  red" onclick="googleSignIn()">Register with google.</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="homeScreenC animate__animated  animate__rollIn">
+        <div class="row" style="height: 100vh;display: flex;flex-direction: column; padding: 0;margin: 0;">
+            <div class="col l6 offset-l3  s10 offset-s1" style="padding: 0;">
+                <div class="card-panel" style="background:rgba(0,0,0,.3);margin-bottom: 0;">
+                    <div class="" id="logInEmail" style="font-weight:bold"></div>
+                    <button class="btn btn-small" style="padding: 0px 20px;" onclick="signOut()">Sign Out</button>
+                </div>
+            </div>
+            <div class="col l6 offset-l3 s10 offset-s1" style="flex:1;padding: 0;">
+                <div class="card-panel" style="background:rgba(0,0,0,.2);height: 99%;overflow-y: auto;">
+                    <div class="preloader_msg_box"
+                        style="display: flex;justify-content: center;align-items: center;height: 100%;">
+                        <div class="preloader-wrapper active">
+                            <div class="spinner-layer spinner-red-only">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="message_box row">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col l6 offset-l3 s10 offset-s1">
+                <div class="row card-panel" style="background:rgba(0,0,0,.1);padding-bottom: 5px;">
+                    <div class="input-field col l12  s10 offset-s1" style="margin-top: 0;margin-bottom: 0;">
+                        <input id="message_field" placeholder="Type your message" type="text" class="validate">
+                        <label for="message_field">Message : </label>
+                    </div>
+                    <div class="input-field col l12  s10 offset-s1" style="margin-top: 0;margin-bottom: 0;">
+                        <button class="btn btn-small green" style="width: 100%;" onclick="addData()">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+</body>
+
+</html>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+
+<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+<script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-analytics.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-database.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyD5J3Si-beKBnIK5c_B_qHybdAm4exuyV0",
+        authDomain: "flutterproject-2c52f.firebaseapp.com",
+        databaseURL: "https://flutterproject-2c52f.firebaseio.com",
+        projectId: "flutterproject-2c52f",
+        storageBucket: "flutterproject-2c52f.appspot.com",
+        messagingSenderId: "173263422378",
+        appId: "1:173263422378:web:fbcbe565ffe1666059a1d3",
+        measurementId: "G-D5GZJNEM73"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+</script>
+
+<script>
+
+    function showLogin() {
+        $(".loginC").show()
+        $(".RegisterC").hide()
+        $(".homeScreenC").hide()
+        $(".height").show()
+        $(".preloader_msg_box").show()
+    }
+
+    function showRegister() {
+        $(".RegisterC").show()
+        $(".loginC").hide()
+        $(".otpC").hide()
+        $(".homeScreenC").hide()
+        $(".height").show()
+    }
+    $(document).ready(() => {
+        $(".loginC").show()
+        $(".RegisterC").hide()
+        $(".homeScreenC").hide()
+    })
+
+    function login() {
+        email = $("#email_field").val()
+        password = $("#password_field").val()
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+            $("#email_field").val("")
+            $("#email_field").focus()
+            $("#password_field").val("")
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            Swal.fire({
+                icon: 'error',
+                title: 'Login Failed',
+                text: 'Something went wrong!, Try Again !!',
+                allowOutsideClick: false
+            })
+        });
+    }
+    var email = '';
+    var displayName;
+    function register() {
+        email = $("#email_field_r").val()
+        password = $("#password_field_r").val()
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .catch(function (error) {
+                $("#email_field_r").val("")
+                $("#email_field_r").focus()
+                $("#password_field_r").val("")
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ...
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Registerd Failed',
+                    text: errorMessage,
+                    allowOutsideClick: false
+                })
+            });
+    }
+
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            // User is signed in.
+            displayName = user.displayName;
+            email = user.email;
+            var emailVerified = user.emailVerified;
+            var photoURL = user.photoURL;
+            var isAnonymous = user.isAnonymous;
+            var uid = user.uid;
+            var providerData = user.providerData;
+            $(".loginC").hide()
+            $(".RegisterC").hide()
+            if (emailVerified === false) {
+                Swal.fire({
+                    icon: 'question',
+                    title: 'Check you e-mail...',
+                    text: 'Verification link has been sent to your e-mail address.',
+                    footer: "Refresh page after <pre> </pre>  <b> E-mail verification</b>",
+                    showConfirmButton: true,
+                    confirmButtonText: 'Sign Out',
+                    allowOutsideClick: false
+                })
+                    .then((result) => {
+                        if (result.value) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Sign out successfully..',
+                                showConfirmButton: false
+                            })
+                            signOut()
+                        }
+                    })
+                var user = firebase.auth().currentUser;
+
+                user.sendEmailVerification().then(function () {
+                    // Email sent.
+                }).catch(function (error) {
+                    // An error happened.
+                });
+            }
+            else {
+                $(".homeScreenC").show()
+                $("#logInEmail").append(email)
+                $(".height").hide()
+                firebase.database().ref('/messages/').on('value', function (snapshot) {
+                    $(".message_box").empty()
+                    $(".preloader_msg_box").hide()
+                    var sv = snapshot.val()
+                    Object.keys(sv).forEach(key => {
+                        let temp_msg_box
+                        if (sv[key].id == email) {
+                            temp_msg_box = `<div class="col s10 offset-s2 "
+                                        style="padding:0;display: flex;justify-content: flex-end; align-items:center;">
+                                        <div class="message_box_msg " style="margin-right:5px;">
+                                            <div class="card white-text blue darken-2" style=" padding:5px 10px;">${sv[key].message}
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="white-text circle"
+                                                style="background:rgba(0,0,0,.3);height: 50px;width: 50px;display: flex; align-items:center;justify-content: center;font-weight:bolder">
+                                                ${email.substring(0, 1)}</div>
+                                        </div>
+                                    </div>`
+                        }
+                        else {
+                            temp_msg_box = `<div class="col s10" style="padding:0;display: flex; align-items:center;">
+                            <div class="">
+                                <div class=" white-text circle"
+                                    style="background:rgba(255,255,255,.3);height: 50px;width: 50px;display: flex; align-items:center;justify-content: center;font-weight:bolder">
+                                    ${email.substring(0, 1)}</div>
+                            </div>
+                            <div class="message_box_msg" style="margin-left:5px;">
+                                <div class="card white-text blue" style="padding:5px 10px;">${sv[key].message}
+                                </div>
+                            </div>
+                        </div>`
+                        }
+
+                        $(".message_box").append(temp_msg_box)
+                    })
+                    items = document.querySelectorAll(".message_box .col")
+                    items[items.length - 1].scrollIntoView();
+                });
+            }
+        } else {
+            // User is signed out.
+        }
+    });
+
+
+
+    function signOut() {
+        firebase.auth().signOut();
+        showLogin()
+    }
+
+    function googleSignIn() {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider).then(function (result) {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            var token = result.credential.accessToken;
+            // The signed-in user info.
+            var user = result.user;
+
+
+            // ...
+        }).catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+
+        });
+
+    }
+
+    function addData() {
+        if ($("#message_field").val().length > 0) {
+            var database = firebase.database()
+            var message_txt = $("#message_field").val()
+            firebase.database().ref('messages/').push({
+                id: email,
+                message: message_txt
+            })
+            $('#message_field').val('')
+        }
+    }
+    $("#message_field").keyup(function (e) {
+        if (e.keyCode === 13) {
+            event.preventDefault();
+            if ($("#message_field").val().length > 0) {
+                addData()
+            }
+        }
+    });
+    $("#email_field, #password_field").keyup(function (e) {
+        if (e.keyCode === 13) {
+            event.preventDefault();
+            login()
+        }
+
+    });
+    $("#email_field_r, #password_field_r").keyup(function (e) {
+        if (e.keyCode === 13) {
+            event.preventDefault();
+            register()
+        }
+
+    });
+
+    $(".loginC input").click(function () {
+        $(".loginC label").css("color", "white")
+    })
+    $(".RegisterC input").click(function () {
+        $(".RegisterC label").css("color", "white")
+    })
+
+</script>
